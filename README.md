@@ -9,6 +9,7 @@ filtering, and pagination over that data.
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Clicks](#clicks)
   - [Further Customization](#further-customization)
   - [Even More Customization](#even-more-customization)
   - [Additional node types](#additional-node-types)
@@ -47,6 +48,22 @@ While pretty basic, this example demonstrates a couple things:
 - Regular React DOM attributes such as className will pass-through to the
   rendered `<table>`
 - Data values can be any type with a `toString()` method
+
+### Clicks
+onClickRow
+
+```jsx
+import {Table} from '{universe:react-table}';
+---
+    <Table onClickRow={(item, i, e) => console.log('clicked on row:', item, i, e);} 
+        className="table"
+        data={[
+            { Name: 'John Vangnner', Age: 18 },
+            { Age: 23,  Name: 'Lee Zalminen' },
+            { Age: 32, Position: 'Developer' },
+    ]} />
+---
+```
 
 ### Further Customization
 

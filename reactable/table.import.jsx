@@ -369,7 +369,13 @@ export class Table extends React.Component {
                 }
 
                 return (
-                    <Tr columns={columns} key={i} data={data} {...props} />
+                    <Tr onClick={(e) => this.props.onClickRow(data, i, e)}
+                        onClickItem={this.props.onClickItem}
+                        columns={columns}
+                        key={i}
+                        data={data}
+                        {...props}
+                    />
                 );
             }.bind(this)));
         }
@@ -458,4 +464,5 @@ Table.defaultProps = {
     sortBy: false,
     defaultSort: false,
     itemsPerPage: 0,
+    onClickRow: () => {}
 };

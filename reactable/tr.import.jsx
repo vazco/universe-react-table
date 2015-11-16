@@ -5,7 +5,6 @@ import { filterPropsFrom } from './lib/filter_props_from.import';
 export class Tr extends React.Component {
     render() {
         var children = toArray(React.Children.children(this.props.children));
-
         if (
             this.props.data &&
                 this.props.columns &&
@@ -27,9 +26,9 @@ export class Tr extends React.Component {
                         value = value.value;
                     }
 
-                    return <Td column={column} key={column.key} {...props}>{value}</Td>;
+                    return <Td onClick={(e) => this.props.onClickItem(column.key, value, e)} column={column} key={column.key} {...props}>{value}</Td>;
                 } else {
-                    return <Td column={column} key={column.key} />;
+                    return <Td onClick={(e) => this.props.onClickItem(column.key, undefined, e)} column={column} key={column.key} />;
                 }
             }.bind(this)));
         }
@@ -43,4 +42,8 @@ export class Tr extends React.Component {
 
 Tr.childNode = Td;
 Tr.dataType = 'object';
+
+Tr.defaultProps = {
+    onClickItem: () => {}
+};
 

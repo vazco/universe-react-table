@@ -8,7 +8,8 @@ const internalProps = {
     itemsPerPage: true,
     childNode: true,
     data: true,
-    children: true
+    children: true,
+    onClickItem: true
 };
 
 export function filterPropsFrom(baseProps) {
