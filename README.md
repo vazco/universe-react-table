@@ -230,7 +230,7 @@ To enable sorting on all columns, just specify `sortable={true}` on the
 `<Table>` component. For further customization, ie disabling sort or using a
 custom sort function on a per-column basis, you can pass an array to `sortable`,
 which contains either string column names or column objects.
-
+ 
 If you need you can pass a callback for event of sorting change by props `onSortChange`
 
 ```

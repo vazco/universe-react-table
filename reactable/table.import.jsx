@@ -28,27 +28,26 @@ export class Table extends React.Component {
     }
 
     filterBy(filter) {
-        this.setState({ filter: filter });
+        this.setState({filter: filter});
     }
 
     // Translate a user defined column array to hold column objects if strings are specified
     // (e.g. ['column1'] => [{key: 'column1', label: 'column1'}])
     translateColumnsArray(columns) {
-        return columns.map(function(column, i) {
+        return columns.map((column) => {
             if (typeof(column) === 'string') {
                 return {
-                    key:   column,
+                    key: column,
                     label: column
                 };
             } else {
                 if (typeof(column.sortable) !== 'undefined') {
-                    let sortFunction = column.sortable === true ? 'default' : column.sortable;
-                    this._sortable[column.key] = sortFunction;
+                    this._sortable[column.key] = column.sortable === true ? 'default' : column.sortable;
                 }
 
                 return column;
             }
-        }.bind(this));
+        })
     }
 
     parseChildData(props) {
@@ -56,7 +55,7 @@ export class Table extends React.Component {
 
         // Transform any children back to a data array
         if (typeof(props.children) !== 'undefined') {
-            React.Children.forEach(props.children, function(child) {
+            React.Children.forEach(props.children, function (child) {
                 if (typeof(child) === 'undefined' || child === null) {
                     return;
                 }
@@ -65,14 +64,14 @@ export class Table extends React.Component {
                     case Tfoot:
                         if (typeof(tfoot) !== 'undefined') {
                             console.warn ('You can only have one <Tfoot>, but more than one was specified.' +
-                                          'Ignoring all but the last one');
+                                'Ignoring all but the last one');
                         }
                         tfoot = child;
-                    break;
+                        break;
                     case Tr:
                         let childData = child.props.data || {};
 
-                        React.Children.forEach(child.props.children, function(descendant) {
+                        React.Children.forEach(child.props.children, function (descendant) {
                             // TODO
                             /* if (descendant.type.ConvenienceConstructor === Td) { */
                             if (
@@ -80,7 +79,8 @@ export class Table extends React.Component {
                                 descendant == null
                             ) {
                                 return;
-                            } else if (typeof(descendant.props.column) !== 'undefined') {
+                            }
+                            if (typeof(descendant.props.column) !== 'undefined') {
                                 let value;
 
                                 if (typeof(descendant.props.data) !== 'undefined') {
@@ -89,8 +89,8 @@ export class Table extends React.Component {
                                     value = descendant.props.children;
                                 } else {
                                     console.warn('exports.Td specified without ' +
-                                                 'a `data` property or children, ' +
-                                                 'ignoring');
+                                        'a `data` property or children, ' +
+                                        'ignoring');
                                     return;
                                 }
 
@@ -101,7 +101,7 @@ export class Table extends React.Component {
                                 };
                             } else {
                                 console.warn('exports.Td specified without a ' +
-                                             '`column` property, ignoring');
+                                    '`column` property, ignoring');
                             }
                         });
 
@@ -110,12 +110,12 @@ export class Table extends React.Component {
                             props: filterPropsFrom(child.props),
                             __reactableMeta: true
                         });
-                    break;
+                        break;
                 }
             }.bind(this));
         }
 
-        return { data, tfoot };
+        return {data, tfoot};
     }
 
     initialize(props) {
@@ -149,8 +149,8 @@ export class Table extends React.Component {
                     sortFunction = 'default';
                 }
             } else {
-                columnName      = column;
-                sortFunction    = 'default';
+                columnName = column;
+                sortFunction = 'default';
             }
 
             this._sortable[columnName] = sortFunction;
@@ -181,8 +181,8 @@ export class Table extends React.Component {
                 sortDirection = 1;
             }
         } else {
-            columnName      = column;
-            sortDirection   = 1;
+            columnName = column;
+            sortDirection = 1;
         }
 
         return {
@@ -194,12 +194,14 @@ export class Table extends React.Component {
     updateCurrentSort(sortBy) {
         if (sortBy !== false &&
             sortBy.column !== this.state.currentSort.column &&
-                sortBy.direction !== this.state.currentSort.direction) {
+            sortBy.direction !== this.state.currentSort.direction) {
             const currentSort = this.getCurrentSort(sortBy);
-            if (this.props.onSortChange){
-                this.props.onSortChange(sortBy.column, sortBy.direction);
+            let res;
+            if (this.props.onSortChange) {
+                res = this.props.onSortChange(sortBy.column, sortBy.direction);
             }
-            this.setState({ currentSort });
+            this.setState({currentSort});
+            return res;
         }
     }
 
@@ -208,10 +210,11 @@ export class Table extends React.Component {
         this.sortByCurrentSort();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps = {}) {
         this.initialize(nextProps);
-        this.updateCurrentSort(nextProps.sortBy);
-        this.sortByCurrentSort();
+        if (this.updateCurrentSort(nextProps.sortBy) !== false) {
+            this.sortByCurrentSort();
+        }
     }
 
     applyFilter(filter, children) {
@@ -227,7 +230,7 @@ export class Table extends React.Component {
 
                 if (
                     typeof(data[filterColumn]) !== 'undefined' &&
-                        extractDataFrom(data, filterColumn).toString().toLowerCase().indexOf(filter) > -1
+                    extractDataFrom(data, filterColumn).toString().toLowerCase().indexOf(filter) > -1
                 ) {
                     matchedChildren.push(children[i]);
                     break;
@@ -246,8 +249,7 @@ export class Table extends React.Component {
         if (currentSort.column === null) {
             return;
         }
-
-        this.data.sort(function(a, b){
+        this.data.sort(function (a, b) {
             let keyA = extractDataFrom(a, currentSort.column);
             keyA = isUnsafe(keyA) ? keyA.toString() : keyA || '';
             let keyB = extractDataFrom(b, currentSort.column);
@@ -256,7 +258,7 @@ export class Table extends React.Component {
             // Default sort
             if (
                 typeof(this._sortable[currentSort.column]) === 'undefined' ||
-                    this._sortable[currentSort.column] === 'default'
+                this._sortable[currentSort.column] === 'default'
             ) {
 
                 // Reverse direction if we're doing a reverse sort
@@ -295,12 +297,15 @@ export class Table extends React.Component {
             currentSort.direction = 1;
         }
 
-        // Set the current sort and pass it to the sort function
-        if (this.props.onSortChange){
-            this.props.onSortChange(currentSort.column, currentSort.direction);
+        let res;
+        if (this.props.onSortChange) {
+            res = this.props.onSortChange(currentSort.column, currentSort.direction);
         }
-        this.setState({ currentSort });
-        this.sortByCurrentSort();
+        this.setState({currentSort});
+        if (res !== false){
+            this.sortByCurrentSort();
+        }
+        return res;
     }
 
     render() {
@@ -337,7 +342,7 @@ export class Table extends React.Component {
         // Build up table rows
         if (this.data && typeof this.data.map === 'function') {
             // Build up the columns array
-            children = children.concat(this.data.map(function(rawData, i) {
+            children = children.concat(this.data.map(function (rawData, i) {
                 let data = rawData;
                 let props = {};
                 if (rawData.__reactableMeta === true) {
@@ -352,15 +357,15 @@ export class Table extends React.Component {
                         // already specified
                         if (userColumnsSpecified === false) {
                             let column = {
-                                key:   k,
+                                key: k,
                                 label: k
                             };
 
                             // Only add a new column if it doesn't already exist in the columns array
                             if (
-                                columns.find(function(element) {
-                                return element.key === column.key;
-                            }) === undefined
+                                columns.find(function (element) {
+                                    return element.key === column.key;
+                                }) === undefined
                             ) {
                                 columns.push(column);
                             }
@@ -390,8 +395,8 @@ export class Table extends React.Component {
         let filtering = false;
         if (
             this.props.filterable &&
-                Array.isArray(this.props.filterable) &&
-                    this.props.filterable.length > 0
+            Array.isArray(this.props.filterable) &&
+            this.props.filterable.length > 0
         ) {
             filtering = true;
         }
@@ -430,31 +435,31 @@ export class Table extends React.Component {
 
         return <table {...props}>
             {columns && columns.length > 0 ?
-             <Thead columns={columns}
-                 filtering={filtering}
-                 onFilter={filter => {
+            <Thead columns={columns}
+                   filtering={filtering}
+                   onFilter={filter => {
                      this.setState({ filter: filter });
                  }}
-                 filterPlaceholder={this.props.filterPlaceholder}
-                 currentFilter={this.state.filter}
-                 sort={this.state.currentSort}
-                 sortableColumns={this._sortable}
-                 onSort={this.onSort.bind(this)}
-                 key="thead"/>
-             : null}
+                   filterPlaceholder={this.props.filterPlaceholder}
+                   currentFilter={this.state.filter}
+                   sort={this.state.currentSort}
+                   sortableColumns={this._sortable}
+                   onSort={this.onSort.bind(this)}
+                   key="thead"/>
+                : null}
             <tbody className="reactable-data" key="tbody">
-                {currentChildren}
+            {currentChildren}
             </tbody>
             {pagination === true ?
-             <Paginator colSpan={columns.length}
-                 pageButtonLimit={pageButtonLimit}
-                 numPages={numPages}
-                 currentPage={currentPage}
-                 onPageChange={page => {
+            <Paginator colSpan={columns.length}
+                       pageButtonLimit={pageButtonLimit}
+                       numPages={numPages}
+                       currentPage={currentPage}
+                       onPageChange={page => {
                      this.setState({ currentPage: page });
                  }}
-                 key="paginator"/>
-             : null}
+                       key="paginator"/>
+                : null}
             {this.tfoot}
         </table>;
     }
@@ -464,5 +469,6 @@ Table.defaultProps = {
     sortBy: false,
     defaultSort: false,
     itemsPerPage: 0,
-    onClickRow: () => {}
+    onClickRow: () => {
+    }
 };
