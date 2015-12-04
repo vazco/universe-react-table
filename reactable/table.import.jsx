@@ -212,6 +212,7 @@ export class Table extends React.Component {
 
     componentWillReceiveProps(nextProps = {}) {
         this.initialize(nextProps);
+
         if (this.updateCurrentSort(nextProps.sortBy) !== false) {
             this.sortByCurrentSort();
         }
@@ -247,6 +248,9 @@ export class Table extends React.Component {
         let currentSort = this.state.currentSort;
 
         if (currentSort.column === null) {
+            return;
+        }
+        if (this.props._ignoreSorting) {
             return;
         }
         this.data.sort(function (a, b) {
@@ -349,7 +353,6 @@ export class Table extends React.Component {
                     data = rawData.data;
                     props = rawData.props;
                 }
-
                 // Loop through the keys in each data row and build a td for it
                 for (let k in data) {
                     if (data.hasOwnProperty(k)) {
@@ -468,6 +471,7 @@ export class Table extends React.Component {
 Table.defaultProps = {
     sortBy: false,
     defaultSort: false,
+    sortable: false,
     itemsPerPage: 0,
     onClickRow: () => {
     }
