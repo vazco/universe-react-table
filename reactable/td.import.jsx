@@ -9,6 +9,14 @@ export class Td extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.print) {
+            const node = ReactDOM.findDOMNode(this);
+            //this.setState({width: node.clientWidth});
+        }
+
+    }
+
     render() {
         var tdProps = {
             className: this.props.className,
@@ -42,7 +50,9 @@ export class Td extends React.Component {
                 tdProps.children = data;
             }
         }
-
+        if (this.state && this.state.width) {
+            tdProps.style = { width: this.state.width };
+        }
         return <td {...tdProps} />;
     }
 };

@@ -382,6 +382,7 @@ export class Table extends React.Component {
                         columns={columns}
                         key={i}
                         data={data}
+                        print={this.props.print}
                         {...props}
                     />
                 );
@@ -470,6 +471,7 @@ export class Table extends React.Component {
 
 Table.defaultProps = {
     sortBy: false,
+    print: false,
     defaultSort: false,
     sortable: false,
     itemsPerPage: 0,
