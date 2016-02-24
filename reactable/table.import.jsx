@@ -56,7 +56,7 @@ export class Table extends React.Component {
         // Transform any children back to a data array
         if (typeof(props.children) !== 'undefined') {
             React.Children.forEach(props.children, function (child) {
-                if (typeof(child) === 'undefined' || child === null) {
+                if (!child) {
                     return;
                 }
 
