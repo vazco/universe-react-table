@@ -30,7 +30,11 @@ export class Td extends React.Component {
                     tdProps[key] = this.props.column[key];
                 }
             }
+            if (!tdProps.className && this.props.column.key) {
+                tdProps.className = this.props.column.key;
+            }
         }
+
 
         var data = this.props.data;
 
