@@ -460,8 +460,8 @@ export class Table extends React.Component {
                        numPages={numPages}
                        currentPage={currentPage}
                        onPageChange={page => {
-                     this.setState({ currentPage: page });
-                 }}
+                         this.setState({ currentPage: page });
+                       }}
                        key="paginator"/>
                 : null}
             {this.tfoot}

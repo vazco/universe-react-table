@@ -11,7 +11,7 @@ import { Sort } from './reactable/sort.import';
 import { unsafe } from './reactable/unsafe.import';
 
 React.Children.children = function(children) {
-    return React.Children.map(children, function(x) { return x; }) || [];
+    return React.Children.map(children, x => x) || [];
 };
 
 // Array.prototype.find polyfill - see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
