@@ -32,7 +32,7 @@ This package needs `universe:modules` package for importing
 The simplest example:
 
 ```jsx
-import {Table} from '{universe:react-table}';
+import {Table} from 'meteor/universe:react-table';
 ---
     <Table className="table" data={[
         { Name: 'John Vangnner', Age: 18 },
@@ -53,7 +53,7 @@ While pretty basic, this example demonstrates a couple things:
 onClickRow
 
 ```jsx
-import {Table} from '{universe:react-table}';
+import {Table} from 'meteor/universe:react-table';
 ---
     <Table onClickRow={(item, i, e) => console.log('clicked on row:', item, i, e);} 
         className="table"
@@ -73,7 +73,7 @@ This approach can be freely combined with the `data` property on the `<Table>`,
 and is useful if you want to specify per-row attributes such as classes, like so:
 
 ```jsx
-import {Table, Tr} from '{universe:react-table}';
+import {Table, Tr} from 'meteor/universe:react-table';
 
 React.renderComponent(
     <Table className="table" data={[
@@ -98,7 +98,7 @@ specified, the data used will default to the `Td`'s children.
 Example:
 
 ```jsx
-import {Table, Tr, Td} from '{universe:react-table}';
+import {Table, Tr, Td} from 'meteor/universe:react-table';
 
 ---
     <Table className="table" id="table">
@@ -139,7 +139,7 @@ objects, you can either:
   render the table headers. For example:
 
 ```jsx
-import {Table, Thead, Th, Tr, Td} from '{universe:react-table}';
+import {Table, Thead, Th, Tr, Td} from 'meteor/universe:react-table';
 
 ---
     <Table className="table" id="table">
@@ -186,7 +186,7 @@ strings in `unsafe` to prevent their content from being escaped, like
 so:
 
 ```jsx
-import {Table, unsafe} from '{universe:react-table}';
+import {Table, unsafe} from 'meteor/universe:react-table';
 
 ---
     <Table className="table" id="table" data={[
@@ -301,7 +301,7 @@ additional markup. We tell the Td to take "John Vangnner" as value for data
 handling (filter or sort).
 
 ```jsx
-import {Table, Tdd, Tr} from '{universe:react-table}';
+import {Table, Tdd, Tr} from 'meteor/universe:react-table';
 
 ---
     <Table className="table" id="table" sortable={true}>

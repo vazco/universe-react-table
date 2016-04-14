@@ -11,26 +11,27 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.2.1');
-  api.use(['universe:modules@0.6.7', 'react-runtime@0.14.1']);
+  api.versionsFrom('1.3');
+  api.use(['ecmascript']);
 
-  api.addFiles('reactable/lib/extract_data_from.import.jsx');
-  api.addFiles('reactable/lib/filter_props_from.import.jsx');
-  api.addFiles('reactable/lib/is_react_component.import.jsx');
-  api.addFiles('reactable/lib/stringable.import.jsx');
-  api.addFiles('reactable/lib/to_array.import.jsx');
-
-  api.addFiles('reactable/filterer.import.jsx');
-  api.addFiles('reactable/paginator.import.jsx');
-  api.addFiles('reactable/sort.import.jsx');
-  api.addFiles('reactable/table.import.jsx');
-  api.addFiles('reactable/td.import.jsx');
-  api.addFiles('reactable/tfoot.import.jsx');
-  api.addFiles('reactable/th.import.jsx');
-  api.addFiles('reactable/thead.import.jsx');
-  api.addFiles('reactable/tr.import.jsx');
-  api.addFiles('reactable/unsafe.import.jsx');
-
-  api.addFiles('index.import.js');
+  // api.addFiles('reactable/lib/extract_data_from.jsx');
+  // api.addFiles('reactable/lib/filter_props_from.jsx');
+  // api.addFiles('reactable/lib/is_react_component.jsx');
+  // api.addFiles('reactable/lib/stringable.jsx');
+  // api.addFiles('reactable/lib/to_array.jsx');
+  //
+  // api.addFiles('reactable/filterer.jsx');
+  // api.addFiles('reactable/paginator.jsx');
+  // api.addFiles('reactable/sort.jsx');
+  // api.addFiles('reactable/table.jsx');
+  // api.addFiles('reactable/td.jsx');
+  // api.addFiles('reactable/tfoot.jsx');
+  // api.addFiles('reactable/th.jsx');
+  // api.addFiles('reactable/thead.jsx');
+  // api.addFiles('reactable/tr.jsx');
+  // api.addFiles('reactable/unsafe.jsx');
+  //
+  // api.addFiles('index.jsx');
+  api.mainModule('index.jsx');
 
 });
