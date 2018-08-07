@@ -1,5 +1,14 @@
-## Abandonware
-# Universe React Table
+<h1 align="center">
+    <a href="https://github.com/vazco">vazco</a>/Universe React Table
+</h1>
+
+&nbsp;
+
+<h3 align="center">
+  -- Abandonware. This package is deprecated! --
+</h3>
+
+&nbsp;
 
 Fast, flexible, and simple data tables.
 
@@ -399,7 +408,10 @@ These can be useful if you want to roll your own filtering input field
 outside of 
 
 ## License
-This package is released under the MIT license.
 
 Written based on the wonderful:
 glittershark/reactable
+
+<img src="https://vazco.eu/banner.png" align="right">
+
+**Like every package maintained by [Vazco](https://vazco.eu/), Universe React Table is [MIT licensed](https://github.com/vazco/uniforms/blob/master/LICENSE).**
